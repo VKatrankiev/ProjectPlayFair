@@ -36,11 +36,6 @@ public class TableGenerator {
 					j--;
 				}
 			}
-			if (sbKeyword.charAt(i) == ' ') { // excluding the space too
-				sbKeyword.deleteCharAt(i);
-				i--;
-				length--;
-			}
 		}
 
 		// excluding the keyword symbols from the alphabet
