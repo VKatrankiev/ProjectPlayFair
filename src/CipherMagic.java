@@ -4,7 +4,7 @@ public class CipherMagic {
 	public static String convert(String sentence, char[][] table) {
 		// checking for incorrect input
 		if (sentence.length() == 0 || sentence == null) {
-			System.out.println("The the word to cipher must have symbols!");
+			System.out.print("The word to cipher must have symbols!");
 			return null;
 		}
 		// checking for other symbols than alphabet Upper Case characters
@@ -19,6 +19,11 @@ public class CipherMagic {
 			}
 
 		}
+		// checking for incorrect input
+		if (sentence.length() == 0 || sentence == null) {
+			System.out.print("The symbols of the word must be letters!");
+			return null;
+		}
 
 		// checking for "J" and turning it into "I"
 		for (int i = 0; i < length; i++) {
@@ -27,7 +32,21 @@ public class CipherMagic {
 				segments.insert(i, 'I');
 			}
 		}
-		
+
+		// checking for same letters next to each other in the word to cipher
+		// and putting "X" if so (if X -> Q)
+		for (int i = 1; i < length; i++) {
+			if (segments.charAt(i - 1) == segments.charAt(i)) {
+				if (segments.charAt(i - 1) != 'X') {
+					segments.insert(i, 'X');
+					length++;
+				} else {
+					segments.insert(i, 'Q');
+					length++;
+				}
+			}
+		}
+
 		// checking for odd length and adding "X" if so
 		// if the last letter is "X" putting "Q" instead
 		if (length % 2 == 1) {
@@ -39,20 +58,6 @@ public class CipherMagic {
 				length++;
 			}
 
-		}
-		
-		// checking for same letters next to each other in the word to cipher
-		// and putting "X" if so (if X -> Q)
-		for (int i = 1; i < length; i++) {
-			if (segments.charAt(i - 1) == segments.charAt(i)) {
-				if(segments.charAt(i - 1) != 'X'){
-				segments.insert(i, 'X');
-				length++;
-				}else { 
-					segments.insert(i,'Q');
-					length++;
-				}
-			}
 		}
 
 		System.out.println(segments);

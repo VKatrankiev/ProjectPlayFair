@@ -24,9 +24,6 @@ public class TableGenerator {
 			}
 		}
 
-		// alphabet to get letters from (without J)
-		StringBuilder alphabet = new StringBuilder("ABCDEFGHIKLMNOPQRSTUVWXYZ");
-
 		// removing duplicates from the keyword
 		for (int i = 0; i < length; i++) {
 			for (int j = i + 1; j < length; j++) {
@@ -37,6 +34,9 @@ public class TableGenerator {
 				}
 			}
 		}
+
+		// alphabet to get letters from (without J)
+		StringBuilder alphabet = new StringBuilder("ABCDEFGHIKLMNOPQRSTUVWXYZ");
 
 		// excluding the keyword symbols from the alphabet
 		int lengthAlpha = alphabet.length();
