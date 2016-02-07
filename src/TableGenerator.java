@@ -23,6 +23,11 @@ public class TableGenerator {
 				i--;
 			}
 		}
+		// checking for incorrect input again
+		if (keyword.length() == 0 || keyword == null) {
+			System.out.println("The keyword must have letters!");
+			return null;
+		}
 
 		// removing duplicates from the keyword
 		for (int i = 0; i < length; i++) {
