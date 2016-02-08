@@ -1,34 +1,11 @@
 
 public class TableGenerator {
 
-	public static char[][] tableGenerator(String keyword) {
-		// checking for incorrect input
-		if (keyword.length() == 0 || keyword == null) {
-			System.out.println("The keyword must have symbols!");
-			return null;
-		}
+	public static String synthesizeKeyword(String keyword) {
 		keyword = keyword.toUpperCase();
+		keyword = PlayFairCipher.makeCipherable(keyword);
 		StringBuilder sbKeyword = new StringBuilder(keyword);
-		// checking for other characters than letters (upper case)
-		// and replacing J with I
 		int length = sbKeyword.length();
-		for (int i = 0; i < length; i++) {
-			if (sbKeyword.charAt(i) == 'J') {
-				sbKeyword.deleteCharAt(i);
-				sbKeyword.insert(i, 'I');
-			}
-			if (sbKeyword.charAt(i) < 65 || sbKeyword.charAt(i) > 90) {
-				sbKeyword.deleteCharAt(i);
-				length--;
-				i--;
-			}
-		}
-		// checking for incorrect input again
-		if (keyword.length() == 0 || keyword == null) {
-			System.out.println("The keyword must have letters!");
-			return null;
-		}
-
 		// removing duplicates from the keyword
 		for (int i = 0; i < length; i++) {
 			for (int j = i + 1; j < length; j++) {
@@ -39,10 +16,14 @@ public class TableGenerator {
 				}
 			}
 		}
+		return sbKeyword.toString();
+	}
 
+	public static char[][] tableGenerator(String keyword) {
+		int length = keyword.length();
+		StringBuilder sbKeyword = new StringBuilder(keyword);
 		// alphabet to get letters from (without J)
 		StringBuilder alphabet = new StringBuilder("ABCDEFGHIKLMNOPQRSTUVWXYZ");
-
 		// excluding the keyword symbols from the alphabet
 		int lengthAlpha = alphabet.length();
 		for (int i = 0; i < lengthAlpha; i++) {
@@ -50,7 +31,7 @@ public class TableGenerator {
 				if (alphabet.charAt(i) == sbKeyword.charAt(j)) {
 					alphabet.deleteCharAt(i);
 					i--; // by deleting char at i => charAt(i) = charAt(i+1)
-					lengthAlpha--; // same as "length"
+					lengthAlpha--;
 					break;
 				}
 			}
