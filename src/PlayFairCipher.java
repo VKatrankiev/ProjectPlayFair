@@ -3,14 +3,13 @@ import java.util.Scanner;
 public class PlayFairCipher {
 
 	public static void main(String[] args) {	
-		boolean flagKey = true;
-		boolean flagSentence = false;
 		Scanner input = new Scanner(System.in);
 		//the method (inputTable) uses different methods for the two words
 		System.out.print("Please, insert a keyword to cipher by: ");
-		String key = inputData(input, flagKey);
+		
+		String key = TableGenerator.synthesizeKeyword(inputData(input));
 		System.out.print("Please, insert a word/sentence to be ciphered: ");
-		String sentence = inputData(input, flagSentence);
+		String sentence = CipherLogic.synthesizeCipherWord(inputData(input));
 		viewTable(key, sentence);
 	}
 
@@ -25,17 +24,12 @@ public class PlayFairCipher {
 		System.out.println(CipherLogic.cipher(sentence, table));
 	}
 
-	private static String inputData(Scanner input, boolean flag) {
+	private static String inputData(Scanner input) {
 		String key = input.nextLine();
 		while (!isInputCorrect(key)) {
 			System.out.println("There are no symbols or they are not English letters. Please insert a correct input: ");
 			key = input.nextLine();
 			System.out.println();
-		}
-		if(flag){
-			key = TableGenerator.synthesizeKeyword(key);
-		} else {
-			key = CipherLogic.synthesizeCipherWord(key);
 		}
 		return key;
 	}
