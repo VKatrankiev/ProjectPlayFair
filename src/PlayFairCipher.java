@@ -2,29 +2,19 @@ import java.util.Scanner;
 
 public class PlayFairCipher {
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
+		boolean flagKey = true;
+		boolean flagSentence = false;
 		Scanner input = new Scanner(System.in);
-		
+		//the method (inputTable) uses different methods for the two words
 		System.out.print("Please, insert a keyword to cipher by: ");
-		String key = input.nextLine();
-		while (!isInputCorrect(key)) {
-			System.out.println("There are no symbols or they are not English letters. Please insert a keyword: ");
-			key = input.nextLine();
-			System.out.println();
-		}
-		key = TableGenerator.synthesizeKeyword(key);
-		
-		
-		System.out.println("Now please insert a word/sentence to cipher using PlayFair: ");
-		String sentence = input.nextLine();
-		while (!isInputCorrect(sentence)) {
-			System.out
-					.println("There are no symbols, or they are not English letters. Please insert a word to cipher: ");
-			sentence = input.nextLine();
-			System.out.println();
-		}
-		sentence = CipherLogic.synthesizeCipherWord(sentence);
-		
+		String key = inputData(input, flagKey);
+		System.out.print("Please, insert a word/sentence to be ciphered: ");
+		String sentence = inputData(input, flagSentence);
+		viewTable(key, sentence);
+	}
+
+	private static void viewTable(String key, String sentence) {
 		char[][] table = TableGenerator.tableGenerator(key);
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
@@ -33,6 +23,21 @@ public class PlayFairCipher {
 			System.out.println();
 		}
 		System.out.println(CipherLogic.cipher(sentence, table));
+	}
+
+	private static String inputData(Scanner input, boolean flag) {
+		String key = input.nextLine();
+		while (!isInputCorrect(key)) {
+			System.out.println("There are no symbols or they are not English letters. Please insert a correct input: ");
+			key = input.nextLine();
+			System.out.println();
+		}
+		if(flag){
+			key = TableGenerator.synthesizeKeyword(key);
+		} else {
+			key = CipherLogic.synthesizeCipherWord(key);
+		}
+		return key;
 	}
 
 	private static boolean isInputCorrect(String str) {
